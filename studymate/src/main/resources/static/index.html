@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>StudyMate AI</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        #authScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 100vh;
+
+            background: #f5f7fb;
+        }
+
+        .app-layout {
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- ===============================
+         AUTHENTICATION
+         =============================== -->
+
+    <div id="authScreen">
+
+        <div class="auth-card">
+
+            <h1>StudyMate AI</h1>
+
+            <p>
+                Study smarter. Achieve more.
+            </p>
+
+
+            <!-- LOGIN -->
+
+            <div id="loginSection">
+
+                <h2>
+                    Login
+                </h2>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Email"
+                >
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                >
+
+                <button id="loginButton">
+                    Login
+                </button>
+
+                <p>
+                    Don't have an account?
+
+                    <button id="showRegister">
+                        Register
+                    </button>
+                </p>
+
+            </div>
+
+
+            <!-- REGISTER -->
+
+            <div
+                id="registerSection"
+                style="display:none;"
+            >
+
+                <h2>
+                    Create Account
+                </h2>
+
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Name"
+                >
+
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Email"
+                >
+
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Password"
+                >
+
+                <button id="registerButton">
+                    Register
+                </button>
+
+                <p>
+                    Already have an account?
+
+                    <button id="showLogin">
+                        Login
+                    </button>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===============================
+         APP LAYOUT
+         =============================== -->
+
+    <div
+        class="app-layout"
+        style="display: none;"
+    >
+
+
+        <!-- ===============================
+             SIDEBAR
+             =============================== -->
+
+        <aside class="sidebar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    S
+                </div>
+
+                <div>
+
+                    <h1>
+                        StudyMate
+                    </h1>
+
+                    <span>
+                        AI Study Planner
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="#dashboard"
+                    class="nav-item active"
+                >
+                    <span>⌂</span>
+                    Dashboard
+                </a>
+
+                <a
+                    href="#subjects"
+                    class="nav-item"
+                >
+                    <span>📚</span>
+                    Subjects
+                </a>
+
+                <a
+                    href="#tasks"
+                    class="nav-item"
+                >
+                    <span>✓</span>
+                    Study Tasks
+                </a>
+
+                <a
+                    href="#exams"
+                    class="nav-item"
+                >
+                    <span>📅</span>
+                    Exams
+                </a>
+
+                <a
+                    href="#plan"
+                    class="nav-item"
+                >
+                    <span>🧠</span>
+                    Study Plan
+                </a>
+
+                <a
+                    href="#progress"
+                    class="nav-item"
+                >
+                    <span>📊</span>
+                    Progress
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <div class="ai-box">
+
+                    <div class="ai-icon">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            StudyMate AI
+                        </strong>
+
+                        <p>
+                            Your smart study companion
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ===============================
+             MAIN CONTENT
+             =============================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="topbar-label">
+                        STUDENT DASHBOARD
+                    </p>
+
+                    <h2>
+                        Welcome to StudyMate 👋
+                    </h2>
+
+                </div>
+
+
+                <div class="profile-badge">
+
+                    <div class="profile-avatar">
+                        V
+                    </div>
+
+                    <div>
+
+                        <strong id="profileDisplayName">
+                            Student
+                        </strong>
+
+                        <span>
+                            Student
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGOUT BUTTON -->
+
+                <button
+                    id="logoutButton"
+                    class="secondary-btn"
+                    type="button"
+                    onclick="logoutUser()"
+                >
+                    Logout
+                </button>
+
+            </header>
+
+
+            <!-- ===============================
+                 DASHBOARD
+                 =============================== -->
+
+            <section
+                id="dashboard"
+                class="page-section"
+            >
+
+                <div class="hero-card">
+
+                    <div>
+
+                        <p class="hero-small">
+                            PLAN • LEARN • ACHIEVE
+                        </p>
+
+                        <h1>
+                            Build a smarter study routine.
+                        </h1>
+
+                        <p>
+                            Organize your subjects, exams and daily
+                            study tasks in one place.
+                        </p>
+
+                    </div>
+
+                    <div class="hero-symbol">
+                        ✦
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK STATS -->
+
+                <div class="stats-grid">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            ⏱
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Study Hours
+                            </span>
+
+                            <strong id="dashboardStudyHours">
+                                —
+                            </strong>
+
+                            <small>
+                                Per day
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">
+                            📚
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Subjects
+                            </span>
+
+                            <strong id="dashboardSubjects">
+                                —
+                            </strong>
+
+                            <small>
+                                Active subjects
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Tasks
+                            </span>
+
+                            <strong id="dashboardTasks">
+                                —
+                            </strong>
+
+                            <small>
+                                Study tasks
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon orange">
+                            📈
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Progress
+                            </span>
+
+                            <strong id="dashboardProgress">
+                                —
+                            </strong>
+
+                            <small>
+                                Completion
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <div class="content-card">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span class="section-kicker">
+                                GET STARTED
+                            </span>
+
+                            <h2>
+                                Student Profile
+                            </h2>
+
+                            <p>
+                                Tell StudyMate about your study routine.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Student Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter your name"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="studyHours">
+                                Available Study Hours Per Day
+                            </label>
+
+                            <input
+                                type="number"
+                                id="studyHours"
+                                placeholder="Example: 4"
+                                min="1"
+                                max="24"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button
+                        id="saveProfile"
+                        class="primary-btn"
+                    >
+                        Save Profile
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===============================
+                 SUBJECTS
+                 =============================== -->
+
+            <section
+                id="subjects"
+                class="page-section"
+            >
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            ORGANIZE
+                        </span>
+
+                        <h2>
+                            My Subjects
+                        </h2>
+
+                        <p>
+                            Add the subjects you are currently studying.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="subjectName">
+                                Subject Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="subjectName"
+                                placeholder="Example: Java"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="difficulty">
+                                Difficulty
+                            </label>
+
+                            <select id="difficulty">
+
+                                <option value="Easy">
+                                    Easy
+                                </option>
+
+                                <option value="Medium">
+                                    Medium
+                                </option>
+
+                                <option value="Hard">
+                                    Hard
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="addSubject"
+                        class="primary-btn"
+                    >
+                        + Add Subject
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="subjectList"
+                    class="item-grid"
+                >
+
+                    <div class="empty-state">
+
+                        <div>
+                            📚
+                        </div>
+
+                        <h3>
+                            No subjects yet
+                        </h3>
+
+                        <p>
+                            Add your first subject to get started.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===============================
+                 EXAMS
+                 =============================== -->
+
+            <section
+                id="exams"
+                class="page-section"
+            >
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            PLAN AHEAD
+                        </span>
+
+                        <h2>
+                            Exam Details
+                        </h2>
+
+                        <p>
+                            Keep track of your upcoming examinations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="examSubjectId">
+                                Subject
+                            </label>
+
+                            <select id="examSubjectId">
+
+                                <option value="">
+                                    Select Subject
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="examDate">
+                                Exam Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="examDate"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="addExam"
+                        class="primary-btn"
+                    >
+                        Save Exam
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ===============================
+                 STUDY TASKS
+                 =============================== -->
+
+            <section
+                id="tasks"
+                class="page-section"
+            >
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            DAILY WORK
+                        </span>
+
+                        <h2>
+                            Study Tasks
+                        </h2>
+
+                        <p>
+                            Create and manage your daily study activities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="taskSubjectId">
+                                Subject
+                            </label>
+
+                            <select id="taskSubjectId">
+
+                                <option value="">
+                                    Select Subject
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="taskName">
+                                Task Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="taskName"
+                                placeholder="Example: Practice OOP questions"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="taskDate">
+                                Study Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="taskDate"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="taskDuration">
+                                Duration (minutes)
+                            </label>
+
+                            <input
+                                type="number"
+                                id="taskDuration"
+                                placeholder="Example: 60"
+                                min="1"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="addTask"
+                        class="primary-btn"
+                    >
+                        + Add Study Task
+                    </button>
+
+                </div>
+
+
+                <div class="toolbar">
+
+                    <div>
+
+                        <h3>
+                            My Study Tasks
+                        </h3>
+
+                        <p>
+                            Track your daily learning activities.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="loadTasks"
+                        class="secondary-btn"
+                    >
+                        View My Tasks
+                    </button>
+
+                </div>
+
+
+                <div id="taskList"></div>
+
+            </section>
+
+
+            <!-- ===============================
+                 STUDY PLAN
+                 =============================== -->
+
+            <section
+                id="plan"
+                class="page-section"
+            >
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            SMART PLANNING
+                        </span>
+
+                        <h2>
+                            My Study Plan
+                        </h2>
+
+                        <p>
+                            Let StudyMate create a plan based on your
+                            available time and subjects.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="generatePlan"
+                        class="primary-btn"
+                    >
+                        ✦ Generate Study Plan
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="studyPlan"
+                    class="study-plan-grid"
+                ></div>
+
+            </section>
+
+
+            <!-- ===============================
+                 PROGRESS
+                 =============================== -->
+
+            <section
+                id="progress"
+                class="page-section"
+            >
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span class="section-kicker">
+                            YOUR PERFORMANCE
+                        </span>
+
+                        <h2>
+                            Progress Dashboard
+                        </h2>
+
+                        <p>
+                            See how much of your study work you have completed.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="showProgress"
+                        class="secondary-btn"
+                    >
+                        View Progress
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="progressDashboard"
+                    class="progress-card"
+                ></div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer class="footer">
+
+                <strong>
+                    StudyMate AI
+                </strong>
+
+                <span>
+                    Study smarter. Stay consistent. Achieve more.
+                </span>
+
+            </footer>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
